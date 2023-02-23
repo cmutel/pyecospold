@@ -24,7 +24,7 @@ All Rights Reserved.
 		<xsd:choice minOccurs="0">
 			<xsd:element name="inputGroup">
 				<xsd:annotation>
-					<xsd:documentation>Indicates the kind of input flow. The codes are:
+					<xsd:documentation>Indicates the kind of input flow. Only one group should be given! This should have been an attribute instead of an element. The codes are:
 						1=Materials/Fuels, 2=Electricity/Heat, 3=Services, 4=FromNature,
 						5=FromTechnosphere.</xsd:documentation>
 					<xsd:appinfo>
@@ -50,7 +50,7 @@ All Rights Reserved.
 			</xsd:element>
 			<xsd:element name="outputGroup">
 				<xsd:annotation>
-					<xsd:documentation>Indicates the kind of output flow. The codes are:
+					<xsd:documentation>Indicates the kind of output flow. Only one group should be given! This should have been an attribute instead of an element. The codes are:
 						0=ReferenceProduct, 1=Include avoided product system, 2=Allocated by
 						product, 3=WasteToTreatment, 4=ToNature.</xsd:documentation>
 					<xsd:appinfo>
