@@ -7,14 +7,19 @@ __all__ = (
     "parse_file",
     "parse_file_v1",
     "parse_file_v2",
+    "validate_file",
+    "validate_file_v1",
+    "validate_file_v2",
     "save_file",
     "Defaults",
+    "validate_cas",
 )
 
 
 import importlib.metadata
 from typing import Union
 
+from .cas_validation import validate_cas
 from .config import Defaults
 from .core import (
     parse_directory,
@@ -24,6 +29,9 @@ from .core import (
     parse_file_v1,
     parse_file_v2,
     save_file,
+    validate_file,
+    validate_file_v1,
+    validate_file_v2,
 )
 
 
