@@ -6,6 +6,7 @@ from typing import List, Tuple, Union
 from lxml import etree, objectify
 
 from .config import Defaults
+from .helpers import DataHelper
 from .model_v1 import AdministrativeInformation as AdministrativeInformationV1
 from .model_v1 import Allocation
 from .model_v1 import DataEntryBy as DataEntryByV1
@@ -25,21 +26,27 @@ from .model_v1 import TimePeriod as TimePeriodV1
 from .model_v1 import Validation
 from .model_v2 import Activity, ActivityDataset, ActivityDescription
 from .model_v2 import AdministrativeInformation as AdministrativeInformationV2
-from .model_v2 import Classification, Comment
+from .model_v2 import Beta, Classification, Comment
 from .model_v2 import DataEntryBy as DataEntryByV2
 from .model_v2 import DataGeneratorAndPublication as DataGeneratorAndPublicationV2
 from .model_v2 import EcoSpold as EcoSpoldV2
 from .model_v2 import ElementaryExchange, FileAttributes
 from .model_v2 import FlowData as FlowDataV2
+from .model_v2 import Gamma
 from .model_v2 import Geography as GeographyV2
-from .model_v2 import ImpactIndicator, IntermediateExchange, MacroEconomicScenario
+from .model_v2 import (
+    ImpactIndicator,
+    IntermediateExchange,
+    Lognormal,
+    MacroEconomicScenario,
+)
 from .model_v2 import ModellingAndValidation as ModellingAndValidationV2
-from .model_v2 import Parameter, Property
+from .model_v2 import Normal, Parameter, Property
 from .model_v2 import Representativeness as RepresentativenessV2
 from .model_v2 import Review
 from .model_v2 import Technology as TechnologyV2
 from .model_v2 import TimePeriod as TimePeriodV2
-from .model_v2 import TransferCoefficient, Uncertainty
+from .model_v2 import TransferCoefficient, Triangular, Uncertainty, Uniform
 
 
 class EcospoldLookupV1(etree.CustomElementClassLookup):
@@ -87,6 +94,7 @@ class EcospoldLookupV2(etree.CustomElementClassLookup):
             "administrativeInformation": AdministrativeInformationV2,
             "allocationComment": Comment,
             "childActivityDataset": ActivityDataset,
+            "beta": Beta,
             "classification": Classification,
             "comment": Comment,
             "dataEntryBy": DataEntryByV2,
@@ -96,11 +104,14 @@ class EcospoldLookupV2(etree.CustomElementClassLookup):
             "fileAttributes": FileAttributes,
             "flowData": FlowDataV2,
             "generalComment": Comment,
+            "gamma": Gamma,
             "geography": GeographyV2,
             "impactIndicator": ImpactIndicator,
             "intermediateExchange": IntermediateExchange,
+            "lognormal": Lognormal,
             "macroEconomicScenario": MacroEconomicScenario,
             "modellingAndValidation": ModellingAndValidationV2,
+            "normal": Normal,
             "parameter": Parameter,
             "property": Property,
             "representativeness": RepresentativenessV2,
@@ -108,7 +119,9 @@ class EcospoldLookupV2(etree.CustomElementClassLookup):
             "technology": TechnologyV2,
             "timePeriod": TimePeriodV2,
             "transferCoefficient": TransferCoefficient,
+            "triangular": Triangular,
             "uncertainty": Uncertainty,
+            "uniform": Uniform,
         }
         try:
             return lookupmap[name]
@@ -277,12 +290,14 @@ def parse_directory(
     ]
 
 
-def save_file(root: etree.ElementBase, path: str) -> None:
+def save_file(root: etree.ElementBase, path: str, fill_defaults: bool = False) -> None:
     """Saves an Ecospold class to an XML file.
 
     Parameters:
     root: the EcoSpold class representing the root of the XML file.
     path: the path to save the Ecospold XML file.
     """
+    if fill_defaults:
+        DataHelper.fill_in_defaults(root)
     root = etree.ElementTree(root)
     root.write(path, pretty_print=True, xml_declaration=True, encoding="UTF-8")
