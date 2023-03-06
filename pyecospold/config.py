@@ -44,6 +44,9 @@ class Defaults:
         "DataEntryBy": {
             "qualityNetwork": "1",
         },
+        "DataGeneratorAndPublication": {
+            "dataPublishedIn": "0",
+        },
         "Dataset": {
             "validCompanyCodes": "CompanyCodes.xml",
             "validRegionalCodes": "RegionalCodes.xml",
@@ -57,6 +60,12 @@ class Defaults:
         },
         "Exchange": {
             "uncertaintyType": "1",
+        },
+        "FileAttributes": {
+            "defaultLanguage": "en",
+        },
+        "PedigreeMatrix": {
+            "reliability": "5",
         },
         "ReferenceFunction": {
             "infrastructureProcess": "true",
@@ -81,6 +90,6 @@ class Defaults:
         staticDefaults = {
             name: dict(section)
             for name, section in config.items()
-            if name not in ["parameters", "defaults"]
+            if name not in ["parameters"]
         }
         cls.static_defaults = staticDefaults

@@ -26,7 +26,7 @@ from .model_v1 import TimePeriod as TimePeriodV1
 from .model_v1 import Validation
 from .model_v2 import Activity, ActivityDataset, ActivityDescription
 from .model_v2 import AdministrativeInformation as AdministrativeInformationV2
-from .model_v2 import Beta, Classification, Comment
+from .model_v2 import Beta, Classification, Compartment
 from .model_v2 import DataEntryBy as DataEntryByV2
 from .model_v2 import DataGeneratorAndPublication as DataGeneratorAndPublicationV2
 from .model_v2 import EcoSpold as EcoSpoldV2
@@ -41,10 +41,11 @@ from .model_v2 import (
     MacroEconomicScenario,
 )
 from .model_v2 import ModellingAndValidation as ModellingAndValidationV2
-from .model_v2 import Normal, Parameter, Property
+from .model_v2 import Normal, Parameter, PedigreeMatrix, Property
 from .model_v2 import Representativeness as RepresentativenessV2
-from .model_v2 import Review
+from .model_v2 import RequiredContextReference, Review
 from .model_v2 import Technology as TechnologyV2
+from .model_v2 import TextAndImage
 from .model_v2 import TimePeriod as TimePeriodV2
 from .model_v2 import TransferCoefficient, Triangular, Uncertainty, Uniform
 
@@ -92,18 +93,19 @@ class EcospoldLookupV2(etree.CustomElementClassLookup):
             "activityDataset": ActivityDataset,
             "activityDescription": ActivityDescription,
             "administrativeInformation": AdministrativeInformationV2,
-            "allocationComment": Comment,
+            "allocationComment": TextAndImage,
             "childActivityDataset": ActivityDataset,
             "beta": Beta,
             "classification": Classification,
-            "comment": Comment,
+            "comment": TextAndImage,
+            "compartment": Compartment,
             "dataEntryBy": DataEntryByV2,
             "dataGeneratorAndPublication": DataGeneratorAndPublicationV2,
             "ecoSpold": EcoSpoldV2,
             "elementaryExchange": ElementaryExchange,
             "fileAttributes": FileAttributes,
             "flowData": FlowDataV2,
-            "generalComment": Comment,
+            "generalComment": TextAndImage,
             "gamma": Gamma,
             "geography": GeographyV2,
             "impactIndicator": ImpactIndicator,
@@ -113,8 +115,10 @@ class EcospoldLookupV2(etree.CustomElementClassLookup):
             "modellingAndValidation": ModellingAndValidationV2,
             "normal": Normal,
             "parameter": Parameter,
+            "pedigreeMatrix": PedigreeMatrix,
             "property": Property,
             "representativeness": RepresentativenessV2,
+            "requiredContexts": RequiredContextReference,
             "review": Review,
             "technology": TechnologyV2,
             "timePeriod": TimePeriodV2,
