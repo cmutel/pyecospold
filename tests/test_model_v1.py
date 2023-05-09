@@ -189,10 +189,10 @@ def test_parse_file_v1_exchange(eco_spold: EcoSpold) -> None:
     assert exchange.minValue is minValue
     assert exchange.maxValue is maxValue
     assert exchange.mostLikelyValue is mostLikelyValue
-    assert exchange.inputGroups == inputGroups
-    assert exchange.inputGroupsStr == inputGroupsStr
-    assert outputExchange.outputGroups == outputGroups
-    assert outputExchange.outputGroupsStr == outputGroupsStr
+    assert exchange.groups == inputGroups
+    assert exchange.groupsStr == inputGroupsStr
+    assert outputExchange.groups == outputGroups
+    assert outputExchange.groupsStr == outputGroupsStr
 
 
 def test_parse_file_v1_allocation(eco_spold: EcoSpold) -> None:
@@ -289,23 +289,19 @@ def test_parse_file_v1_technology(eco_spold: EcoSpold) -> None:
 def test_parse_file_v1_time_period(eco_spold: EcoSpold) -> None:
     """It parses attributes correctly."""
     text = "Year when reference used for this inventory was published."
-    startYear = "1999"
-    startYearMonth = ""
-    startDate = ""
-    endYear = "1999"
-    endYearMonth = ""
-    endDate = ""
+    startDate = datetime(1999, 1, 1)
+    endDate = datetime(1999, 1, 1)
+    modifiedEndDate = datetime(2000, 3, 4)
     processInformation = eco_spold.datasets[0].metaInformation.processInformation
     timePeriod = processInformation.timePeriod
 
     assert timePeriod.dataValidForEntirePeriod
     assert timePeriod.text == text
-    assert timePeriod.startYear == startYear
-    assert timePeriod.startYearMonth == startYearMonth
     assert timePeriod.startDate == startDate
-    assert timePeriod.endYear == endYear
-    assert timePeriod.endYearMonth == endYearMonth
     assert timePeriod.endDate == endDate
+
+    timePeriod.endDate = modifiedEndDate
+    assert timePeriod.endDate == modifiedEndDate
 
 
 def test_parse_file_v1_dataset_information(eco_spold: EcoSpold) -> None:
